@@ -31,7 +31,7 @@
     --owe: #BF3B2E;
     --owe-soft: #F5E0DD;
     --owed: #0E7C6B;
-    --field: #FFFFFF;
+    --field: #FBFBF9;
     --field-focus: #EFF9F6;
     --font: "InterVariable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
@@ -49,7 +49,7 @@
     --muted: #63666B; --faint: #9A9DA2; --line: #E3E3E0; --line-strong: #CDCEC9;
     --accent: #0E7C6B; --accent-ink: #FFFFFF; --accent-soft: #DBEDE9;
     --amber: #97690F; --amber-soft: #F0E7D3; --owe: #BF3B2E; --owe-soft: #F5E0DD;
-    --owed: #0E7C6B; --field: #FFFFFF; --field-focus: #EFF9F6;
+    --owed: #0E7C6B; --field: #FBFBF9; --field-focus: #EFF9F6;
   }
   :root[data-theme="dark"] {
     --paper: #101113; --surface: #17191C; --surface-2: #1F2226; --ink: #ECEDEF;
@@ -68,7 +68,7 @@
     -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
   .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 20px 160px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 20px 60px; }
 
   a { color: var(--accent); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -83,16 +83,17 @@
   .brand p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
   .head-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
-  /* Buttons + fields */
+  /* Buttons — every button carries a visible border so it reads as a button */
   button { font-family: var(--font); cursor: pointer; border: none; background: none; color: inherit; font-size: 14px; }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 500; transition: background .12s, border-color .12s; }
-  .btn:hover { border-color: var(--accent); background: var(--field-focus); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 500; transition: background .12s, border-color .12s, color .12s; }
+  .btn:hover { border-color: var(--accent); background: var(--field-focus); color: var(--ink); }
   .btn:active { transform: translateY(1px); }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
   .btn.primary:hover { background: var(--accent); filter: brightness(1.06); }
-  .btn.ghost { border-color: transparent; background: transparent; color: var(--muted); }
-  .btn.ghost:hover { color: var(--ink); background: var(--surface-2); }
+  .btn.ghost { color: var(--muted); }
+  .btn.ghost:hover { color: var(--ink); }
   .btn.sm { padding: 5px 10px; font-size: 13px; }
+  .btn.danger { border-color: var(--owe); color: var(--owe); }
   .btn.danger:hover { border-color: var(--owe); background: var(--owe-soft); color: var(--owe); }
   select.ctl, input.ctl { font-family: var(--font); font-size: 14px; padding: 7px 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); }
   select.ctl { cursor: pointer; }
@@ -106,98 +107,119 @@
   /* People bar */
   .people-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; padding: 11px 13px; background: var(--surface); border: 1px solid var(--line); }
   .people-bar .label { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--faint); font-weight: 700; margin-right: 4px; }
-  .person-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line-strong); padding: 3px 3px 3px 8px; }
+  .person-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--field); border: 1px solid var(--line-strong); padding: 3px 4px 3px 8px; }
   .person-chip .swatch { width: 9px; height: 9px; flex: none; }
   .person-chip input { border: none; background: transparent; color: var(--ink); font-size: 14px; font-weight: 500; width: 82px; font-family: var(--font); padding: 3px 0; }
-  .chip-x { width: 22px; height: 22px; color: var(--faint); display: grid; place-items: center; font-size: 17px; line-height: 1; }
-  .chip-x:hover { background: var(--owe-soft); color: var(--owe); }
+  .chip-x { width: 22px; height: 22px; color: var(--faint); display: grid; place-items: center; font-size: 17px; line-height: 1; border: 1px solid transparent; }
+  .chip-x:hover { background: var(--owe-soft); color: var(--owe); border-color: var(--owe); }
 
   /* Section card */
   .section { background: var(--surface); border: 1px solid var(--line); margin-bottom: 16px; }
   .section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 22px 11px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
   .section-head .title-wrap { display: flex; align-items: center; gap: 11px; min-width: 0; }
   .sec-index { font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 3px 7px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .section-head input.sec-name { border: none; background: transparent; font-family: var(--font); font-size: 17px; font-weight: 650; color: var(--ink); letter-spacing: -.015em; padding: 3px 2px; min-width: 120px; }
-  .section-head input.sec-name:focus-visible { outline: none; box-shadow: 0 2px 0 var(--accent); }
-  .section-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .section-head input.sec-name { border: none; border-bottom: 1px solid var(--line-strong); background: transparent; font-family: var(--font); font-size: 17px; font-weight: 650; color: var(--ink); letter-spacing: -.015em; padding: 3px 2px; min-width: 120px; transition: border-color .12s; }
+  .section-head input.sec-name:hover { border-bottom-color: var(--faint); }
+  .section-head input.sec-name:focus, .section-head input.sec-name:focus-visible { outline: none; border-bottom-color: var(--accent); }
+  .section-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .sec-payer { display: inline-flex; align-items: center; gap: 6px; }
   .sec-payer .pl { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); font-weight: 700; }
 
+  /* reconcile + section subtotal */
+  .recon { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .recon .sub { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .recon .sub b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; margin-left: 3px; }
+  .recon.on { background: var(--amber-soft); padding: 4px 6px 4px 11px; }
+  .recon.on .sub, .recon.on .sub b { color: var(--amber); }
+  .recon .arw { color: var(--amber); font-weight: 700; }
+  .recon .paidwrap { display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: .04em; font-size: 11px; font-weight: 700; color: var(--amber); }
+  .recon .paidwrap input { width: 76px; border: 1px solid var(--amber); background: var(--surface); color: var(--ink); padding: 3px 6px; font-family: var(--font); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
+  .recon .fx { font-size: 11.5px; font-weight: 650; color: var(--amber); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
+  .recon .rx { color: var(--amber); border: 1px solid transparent; width: 20px; height: 20px; display: grid; place-items: center; font-size: 15px; }
+  .recon .rx:hover { border-color: var(--amber); }
+
   .table-scroll { overflow-x: auto; }
-  table.grid { border-collapse: collapse; width: 100%; min-width: 560px; }
+  table.grid { border-collapse: collapse; width: 100%; min-width: 620px; }
   table.grid th, table.grid td { padding: 0; border-top: 1px solid var(--line); }
   table.grid thead th { border-top: none; }
   table.grid .th-item { text-align: left; padding: 12px 22px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; }
   table.grid .th-price { text-align: right; padding: 12px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; white-space: nowrap; }
   table.grid .th-person { padding: 12px 10px; font-size: 13px; font-weight: 650; text-align: center; color: var(--ink); white-space: nowrap; }
+  table.grid .th-mode { padding: 12px 6px; }
   table.grid .th-paid { padding: 12px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
 
-  table.grid td.c-item { padding-left: 22px; }
-  td.c-item input { width: 100%; border: none; background: transparent; font-family: var(--font); font-size: 14.5px; color: var(--ink); padding: 9px 8px 9px 0; }
-  td.c-price { text-align: right; white-space: nowrap; }
-  td.c-price input { width: 92px; text-align: right; border: none; background: transparent; font-family: var(--font); font-size: 14px; color: var(--ink); padding: 9px 12px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
+  table.grid td.c-item { padding: 5px 12px 5px 22px; }
+  td.c-item input { width: 100%; border: none; border-bottom: 1px solid var(--line-strong); background: transparent; font-family: var(--font); font-size: 14.5px; color: var(--ink); padding: 7px 4px 7px 0; transition: border-color .12s, background .12s; }
+  td.c-item input::placeholder { color: var(--faint); }
+  td.c-item input:hover { border-bottom-color: var(--faint); }
+  td.c-item input:focus { border-bottom-color: var(--accent); background: var(--field-focus); }
+  table.grid td.c-price { text-align: right; white-space: nowrap; padding: 5px 12px 5px 6px; }
+  td.c-price input { width: 96px; text-align: right; border: 1px solid var(--line-strong); background: var(--field); color: var(--ink); font-family: var(--font); font-size: 14px; padding: 7px 10px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, background .12s; }
+  td.c-price input:hover { border-color: var(--faint); }
+  td.c-price input:focus { border-color: var(--accent); background: var(--field-focus); }
   table.grid td.c-cell { text-align: center; padding: 5px 6px; }
   td.c-cell input {
-    width: 58px; text-align: center; border: 1px solid transparent;
+    width: 58px; text-align: center; border: 1px solid var(--line-strong);
     background: var(--field); color: var(--ink); font-family: var(--font); font-size: 13.5px;
     padding: 6px 4px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1;
     transition: border-color .1s, background .1s;
   }
   td.c-cell input::placeholder { color: var(--faint); }
-  td.c-cell input:hover { border-color: var(--line-strong); }
+  td.c-cell input:hover { border-color: var(--faint); }
   td.c-cell input:focus { border-color: var(--accent); background: var(--field-focus); }
   td.c-cell.amount-mode input { color: var(--muted); background: transparent; border-color: transparent; }
   td.c-cell .amt { display: block; font-size: 11px; color: var(--faint); margin-top: 2px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; height: 13px; }
+
+  /* per-item add(×) / divide(÷) mode toggle */
+  table.grid td.c-mode { text-align: center; padding: 5px 6px; white-space: nowrap; }
+  .mode-toggle { display: inline-flex; align-items: center; gap: 1px; min-width: 34px; height: 26px; justify-content: center; padding: 0 8px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 650; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, color .12s; }
+  .mode-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .mode-toggle.divmode { color: var(--accent); }
+  .mode-toggle .den { font-size: 11px; color: var(--faint); font-weight: 600; }
+  .mode-toggle.divmode:hover .den { color: var(--accent); }
+
   table.grid td.c-paid { text-align: center; padding: 5px 10px; }
-  table.grid .row-del { width: 56px; text-align: right; white-space: nowrap; padding-right: 16px; }
-  .row-del button { color: var(--faint); opacity: 0; transition: opacity .12s; width: 22px; height: 22px; font-size: 15px; line-height: 1; }
-  .row-del button.del { font-size: 17px; }
+  table.grid .row-del { width: 1%; white-space: nowrap; text-align: right; padding: 5px 16px 5px 6px; }
+  .row-del button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--muted); opacity: 0; transition: opacity .12s, border-color .12s, color .12s, background .12s; width: 26px; height: 26px; font-size: 14px; line-height: 1; display: inline-grid; place-items: center; }
+  .row-del button.del { font-size: 16px; }
+  .row-del button + button { margin-left: 5px; }
   tr.item-row:hover .row-del button, tr.item-row:focus-within .row-del button { opacity: 1; }
-  .row-del button.even:hover { background: var(--accent-soft); color: var(--accent); }
-  .row-del button.del:hover { background: var(--owe-soft); color: var(--owe); }
+  .row-del button.even:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .row-del button.del:hover { border-color: var(--owe); background: var(--owe-soft); color: var(--owe); }
 
   /* payer chip */
-  .payer-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 22px; padding: 0 7px; font-size: 11.5px; font-weight: 700; letter-spacing: .02em; border: 1px solid transparent; cursor: pointer; font-variant-numeric: tabular-nums; transition: filter .1s, border-color .1s; }
+  .payer-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 24px; padding: 0 8px; font-size: 11.5px; font-weight: 700; letter-spacing: .02em; border: 1px solid transparent; cursor: pointer; font-variant-numeric: tabular-nums; transition: filter .1s, border-color .1s; }
   .payer-chip:hover { filter: brightness(1.06); }
   .payer-chip.inherited { border-style: dashed; }
   .payer-chip.empty { color: var(--faint); background: var(--surface-2); border: 1px dashed var(--line-strong); font-weight: 600; }
   .payer-chip.empty:hover { border-color: var(--accent); color: var(--accent); }
 
   .payer-menu { position: fixed; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 14px 34px -14px rgba(0,0,0,.45); min-width: 168px; z-index: 80; padding: 4px; }
-  .payer-menu button { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; padding: 7px 10px; font-size: 13.5px; color: var(--ink); }
+  .payer-menu button { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; padding: 7px 10px; font-size: 13.5px; color: var(--ink); border: 1px solid transparent; }
   .payer-menu button:hover { background: var(--surface-2); }
   .payer-menu .dot { width: 10px; height: 10px; flex: none; }
   .payer-menu .cur { margin-left: auto; color: var(--accent); font-weight: 700; }
 
   tr.subtotal.raw td { border-top: 1.5px solid var(--line-strong); }
   tr.subtotal.reconciled td { border-top: 1.5px solid var(--line-strong); }
-  tr.subtotal.raw + tr.reconciled td { border-top: none; }
+  tr.subtotal.raw + tr.subtotal.reconciled td { border-top: none; }
   table.grid .sub-label { padding: 13px 8px 13px 22px; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; }
   table.grid td.sub-val { text-align: center; font-size: 13.5px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; padding: 13px 6px; color: var(--ink); }
   tr.subtotal.raw td.sub-val { color: var(--muted); font-size: 12.5px; padding-bottom: 5px; }
-  tr.reconciled td.sub-val { font-weight: 700; padding-top: 3px; padding-bottom: 14px; }
-  tr.reconciled td.sub-label { padding-top: 3px; padding-bottom: 14px; }
+  tr.subtotal.reconciled td.sub-val { font-weight: 700; }
+  tr.subtotal.raw + tr.subtotal.reconciled td.sub-val { padding-top: 3px; }
+  tr.subtotal.raw + tr.subtotal.reconciled td.sub-label { padding-top: 3px; }
 
   .add-item td { border-top: 1px solid var(--line); }
   .add-item .cell { padding: 11px 22px 13px; }
-  .add-item button { color: var(--accent); font-weight: 600; font-size: 13.5px; }
-  .add-item button:hover { text-decoration: underline; }
-
-  /* reconcile control */
-  .reconcile { display: inline-flex; align-items: center; gap: 8px; background: var(--amber-soft); color: var(--amber); padding: 4px 5px 4px 11px; font-size: 12.5px; font-weight: 650; }
-  .reconcile .rlabel { text-transform: uppercase; letter-spacing: .05em; font-size: 11px; }
-  .reconcile input { width: 78px; border: 1px solid var(--amber); background: var(--surface); color: var(--ink); padding: 3px 6px; font-family: var(--font); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
-  .reconcile .factor { font-weight: 700; font-variant-numeric: tabular-nums; }
-  .reconcile .rx { color: var(--amber); width: 20px; height: 20px; display: grid; place-items: center; font-size: 16px; }
-  .reconcile .rx:hover { background: rgba(0,0,0,.08); }
-  .reconcile-add { color: var(--faint); font-size: 12.5px; font-weight: 600; padding: 5px 9px; border: 1px dashed var(--line-strong); }
-  .reconcile-add:hover { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); }
+  .add-item button { color: var(--accent); font-weight: 600; font-size: 13px; padding: 5px 11px; border: 1px solid var(--line-strong); background: var(--surface); }
+  .add-item button:hover { border-color: var(--accent); background: var(--accent-soft); }
 
   .add-section { width: 100%; padding: 15px; border: 1.5px dashed var(--line-strong); color: var(--muted); font-weight: 650; background: transparent; transition: border-color .12s, color .12s; }
   .add-section:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* Settlement */
-  .settle { position: sticky; bottom: 0; margin-top: 22px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 -10px 30px -22px rgba(0,0,0,.55); }
+  /* Settlement (flows at page bottom, not sticky) */
+  .settle { margin-top: 22px; background: var(--surface); border: 1px solid var(--line-strong); }
   .settle-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
   .settle-head h2 { margin: 0; font-size: 15px; letter-spacing: -.01em; font-weight: 700; }
   .settle-head .grand-sum { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; }
@@ -209,14 +231,14 @@
   table.matrix { border-collapse: collapse; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; min-width: 440px; }
   table.matrix th, table.matrix td { border: 1px solid var(--line); padding: 9px 13px; text-align: right; font-size: 13px; white-space: nowrap; }
   table.matrix thead th { font-weight: 650; color: var(--ink); background: var(--surface-2); }
-  table.matrix thead th.corner { text-align: left; color: var(--faint); font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; line-height: 1.35; }
+  table.matrix thead th.corner { text-align: left; color: var(--faint); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; }
   table.matrix thead th .sw, table.matrix tbody th .sw { display: inline-block; width: 8px; height: 8px; margin-right: 6px; vertical-align: baseline; }
   table.matrix tbody th.rowh { text-align: left; font-weight: 650; background: var(--surface-2); color: var(--ink); }
   table.matrix td.diag { text-align: center; color: var(--faint); background: var(--surface-2); }
   table.matrix td.zero { text-align: center; color: var(--faint); }
   table.matrix td.val { color: var(--ink); font-weight: 650; background: var(--accent-soft); }
   table.matrix th.tot, table.matrix td.tot { background: var(--surface-2); font-weight: 700; }
-  table.matrix thead th.tot, table.matrix tbody th.rowh.totlabel { color: var(--faint); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  table.matrix thead th.tot { color: var(--faint); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
   table.matrix tfoot th, table.matrix tfoot td { background: var(--surface-2); font-weight: 700; }
   table.matrix tfoot th.rowh { color: var(--faint); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; text-align: left; }
 
@@ -224,9 +246,8 @@
   .menu-wrap { position: relative; }
   .menu { position: absolute; right: 0; top: calc(100% + 6px); background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 12px 30px -14px rgba(0,0,0,.4); min-width: 190px; z-index: 40; padding: 4px; }
   .menu[hidden] { display: none; }
-  .menu button { display: block; width: 100%; text-align: left; padding: 8px 10px; font-size: 13.5px; color: var(--ink); }
+  .menu button { display: block; width: 100%; text-align: left; padding: 8px 10px; font-size: 13.5px; color: var(--ink); border: 1px solid transparent; }
   .menu button:hover { background: var(--surface-2); }
-  .menu .sep { height: 1px; background: var(--line); margin: 4px 0; }
 
   .footnote { color: var(--faint); font-size: 12px; margin-top: 18px; line-height: 1.65; }
   .footnote code { background: var(--surface-2); padding: 1px 5px; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -238,7 +259,7 @@
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   @media (max-width: 560px) {
-    .wrap { padding: 18px 12px 150px; }
+    .wrap { padding: 18px 12px 50px; }
     .brand h1 { font-size: 22px; }
     .bill-bar .spacer { display: none; }
   }
@@ -275,7 +296,7 @@
     <button class="btn sm" id="dupBill">Duplicate</button>
     <button class="btn sm" id="renameBill">Rename</button>
     <span class="spacer"></span>
-    <button class="btn sm ghost danger" id="delBill">Delete</button>
+    <button class="btn sm danger" id="delBill">Delete</button>
   </div>
 
   <div class="people-bar" id="peopleBar"></div>
@@ -284,9 +305,10 @@
   <div class="settle" id="settle"></div>
 
   <p class="footnote">
-    Each cell is the <b>share of that item's price a person pays</b> — cost = <code>price × cell</code>.
-    Enter a fraction (<code>1/4</code> each for a four-way split), a quantity (<code>2</code>), a decimal, or leave blank.
-    Hover a row and tap <b>÷</b> to split it evenly. Set <b>who paid</b> with the chip in the Paid column
+    Each cell is a person's share of an item. The <b>×/÷</b> toggle on each row sets how:
+    <b>×</b> multiply — everyone pays <code>weight × price</code> (quantities);
+    <b>÷</b> divide — everyone splits the price, <code>weight ÷ total × price</code> (a greyed <code>/n</code> shows the total).
+    Hover a row and tap <b>=</b> to split it evenly. Set <b>who paid</b> with the chip in the Paid column
     (a section's payer sets the default; any item can override) and the <b>owing matrix</b> shows who owes whom.
     <b>Reconcile</b> a section to scale everyone to the amount actually paid (a discount, tax, or tip).
     Everything saves in this browser. Type set in <a href="https://rsms.me/inter/" target="_blank" rel="noopener">Inter</a>.
@@ -322,6 +344,7 @@
     return (neg ? "−" : "") + B().currency + " " + v.toFixed(2);
   }
   function fmtPrice(v) { if (v === "" || v == null) return ""; var n = Number(v); return isFinite(n) ? n.toFixed(2) : ""; }
+  function trimNum(n) { var r = Math.round(n * 1000) / 1000; return String(r); }
 
   // ---------- people helpers ----------
   function personIndex(bill, id) { for (var i = 0; i < bill.people.length; i++) if (bill.people[i].id === id) return i; return -1; }
@@ -344,10 +367,10 @@
 
   function exampleBill() {
     var ids = { jy: uid(), la: uid(), lj: uid(), pa: uid() };
-    var mk = function (name, price, w) {
+    var mk = function (name, price, w, mode) {
       var weights = {};
       weights[ids.jy] = w[0]; weights[ids.la] = w[1]; weights[ids.lj] = w[2]; weights[ids.pa] = w[3];
-      return { id: uid(), name: name, price: price, weights: weights, payer: null };
+      return { id: uid(), name: name, price: price, weights: weights, payer: null, mode: mode || "add" };
     };
     return {
       id: uid(), name: "Dapeng trip", currency: "¥",
@@ -357,30 +380,31 @@
       ],
       sections: [
         { id: uid(), name: "Trip", reconcile: null, payer: ids.jy, items: [
-          mk("car", 127.20, ["1/4", "1/4", "1/4", "1/4"]),
-          mk("dameisha parking", 0.90, ["1/4", "1/4", "1/4", "1/4"]),
-          mk("lunch seat", 3.00, ["1", "1", "1", "1"]),
-          mk("lunch tissue", 3.00, ["1/4", "1/4", "1/4", "1/4"]),
-          mk("lunch set", 238.00, ["2/7", "1/7", "2/7", "2/7"]),
-          mk("lunch rice", 3.00, ["", "1", "1", ""]),
-          mk("dapeng fort parking", 16.00, ["1/4", "1/4", "1/4", "1/4"]),
-          mk("petrol", 145.31, ["1/4", "1/4", "1/4", "1/4"])
+          mk("car", 127.20, ["1", "1", "1", "1"], "div"),
+          mk("dameisha parking", 0.90, ["1", "1", "1", "1"], "div"),
+          mk("lunch seat", 3.00, ["1", "1", "1", "1"], "add"),
+          mk("lunch tissue", 3.00, ["1", "1", "1", "1"], "div"),
+          mk("lunch set", 238.00, ["2", "1", "2", "2"], "div"),
+          mk("lunch rice", 3.00, ["", "1", "1", ""], "add"),
+          mk("dapeng fort parking", 16.00, ["1", "1", "1", "1"], "div"),
+          mk("petrol", 145.31, ["1", "1", "1", "1"], "div")
         ]},
         { id: uid(), name: "Commune", reconcile: 347, payer: ids.lj, items: [
-          mk("margherita pizza", 68.00, ["1/4", "1/2", "1/8", "1/8"]),
-          mk("truffle ham pizza", 89.00, ["1/4", "", "3/8", "3/8"]),
-          mk("chicken burger", 46.00, ["1", "1", "", ""]),
-          mk("beef burger", 65.00, ["", "", "1", ""]),
-          mk("cheese beef thing", 38.00, ["", "", "", "1"]),
-          mk("edamame", 25.00, ["1/4", "1/4", "1/4", "1/4"])
+          mk("margherita pizza", 68.00, ["2", "4", "1", "1"], "div"),
+          mk("truffle ham pizza", 89.00, ["2", "", "3", "3"], "div"),
+          mk("chicken burger", 46.00, ["1", "1", "", ""], "add"),
+          mk("beef burger", 65.00, ["", "", "1", ""], "add"),
+          mk("cheese beef thing", 38.00, ["", "", "", "1"], "add"),
+          mk("edamame", 25.00, ["1", "1", "1", "1"], "div")
         ]}
       ]
     };
   }
+  function blankItem() { return { id: uid(), name: "", price: 0, weights: {}, payer: null, mode: "div" }; }
   function blankBill(name) {
     return { id: uid(), name: name || "New bill", currency: (store ? B().currency : "¥"),
       people: [{ id: uid(), name: "Person 1" }, { id: uid(), name: "Person 2" }],
-      sections: [{ id: uid(), name: "Items", reconcile: null, payer: null, items: [{ id: uid(), name: "", price: 0, weights: {}, payer: null }] }] };
+      sections: [{ id: uid(), name: "Items", reconcile: null, payer: null, items: [blankItem()] }] };
   }
   function normalizeBill(b) {
     if (!b.currency) b.currency = "¥";
@@ -389,7 +413,11 @@
     b.sections.forEach(function (sec) {
       if (!("payer" in sec)) sec.payer = null;
       if (!sec.items) sec.items = [];
-      sec.items.forEach(function (it) { if (!("payer" in it)) it.payer = null; if (!it.weights) it.weights = {}; });
+      sec.items.forEach(function (it) {
+        if (!("payer" in it)) it.payer = null;
+        if (!it.weights) it.weights = {};
+        if (it.mode !== "div" && it.mode !== "add") it.mode = "add";
+      });
     });
     return b;
   }
@@ -419,12 +447,22 @@
     var subtotals = {}, itemAmounts = {};
     bill.people.forEach(function (p) { subtotals[p.id] = 0; });
     sec.items.forEach(function (it) {
-      // A cell is the share of the item's price that person pays: cost = price × cell.
       var amts = {};
-      bill.people.forEach(function (p) {
-        var amt = num(it.price) * parseWeight(it.weights[p.id]);
-        amts[p.id] = amt; subtotals[p.id] += amt;
-      });
+      if (it.mode === "div") {
+        // divide: share = weight ÷ total weight × price
+        var sum = 0;
+        bill.people.forEach(function (p) { sum += parseWeight(it.weights[p.id]); });
+        bill.people.forEach(function (p) {
+          var amt = sum > 0 ? num(it.price) * parseWeight(it.weights[p.id]) / sum : 0;
+          amts[p.id] = amt; subtotals[p.id] += amt;
+        });
+      } else {
+        // multiply: each pays weight × price
+        bill.people.forEach(function (p) {
+          var amt = num(it.price) * parseWeight(it.weights[p.id]);
+          amts[p.id] = amt; subtotals[p.id] += amt;
+        });
+      }
       itemAmounts[it.id] = amts;
     });
     var computedTotal = 0;
@@ -520,7 +558,6 @@
       x.addEventListener("click", function () {
         if (bill.people.length <= 1) return;
         bill.people = bill.people.filter(function (q) { return q.id !== p.id; });
-        // clear dangling payer references
         bill.sections.forEach(function (sec) {
           if (sec.payer === p.id) sec.payer = null;
           sec.items.forEach(function (it) { if (it.payer === p.id) it.payer = null; });
@@ -551,7 +588,8 @@
     tw.appendChild(idx); tw.appendChild(name); head.appendChild(tw);
 
     var actions = el("div", "section-actions");
-    // section default payer
+    actions.appendChild(reconcileControl(sec));
+    // section default payer — placed right of reconcile, near the Paid column
     var sp = el("div", "sec-payer");
     var spl = el("span", "pl"); spl.textContent = "paid by"; sp.appendChild(spl);
     var sChip = makePayerChip(bill, sec.payer, false, { allowInherit: false, allowNone: true }, sec.payer, function (pid) {
@@ -559,7 +597,6 @@
     });
     sp.appendChild(sChip); actions.appendChild(sp);
 
-    actions.appendChild(reconcileControl(sec));
     var del = el("button", "btn ghost sm danger", { title: "Delete section" }); del.textContent = "Delete";
     del.addEventListener("click", function () { bill.sections = bill.sections.filter(function (s) { return s.id !== sec.id; }); render(); });
     actions.appendChild(del); head.appendChild(actions); wrap.appendChild(head);
@@ -570,6 +607,7 @@
     htr.appendChild(thNode("th-item", "Item"));
     htr.appendChild(thNode("th-price", "Price"));
     bill.people.forEach(function (p) { var th = el("th", "th-person"); th.textContent = p.name; htr.appendChild(th); });
+    htr.appendChild(el("th", "th-mode"));
     htr.appendChild(thNode("th-paid", "Paid"));
     htr.appendChild(el("th"));
     thead.appendChild(htr); table.appendChild(thead);
@@ -578,9 +616,9 @@
     sec.items.forEach(function (it) { tbody.appendChild(itemRow(sec, it)); });
 
     var addTr = el("tr", "add-item");
-    var addTd = el("td", "cell", { colspan: String(4 + bill.people.length) });
+    var addTd = el("td", "cell", { colspan: String(5 + bill.people.length) });
     var addBtn = el("button"); addBtn.innerHTML = "＋ Add item";
-    addBtn.addEventListener("click", function () { sec.items.push({ id: uid(), name: "", price: 0, weights: {}, payer: null }); renderSections(); recompute(); saveStore(); });
+    addBtn.addEventListener("click", function () { sec.items.push(blankItem()); renderSections(); recompute(); saveStore(); });
     addTd.appendChild(addBtn); addTr.appendChild(addTd); tbody.appendChild(addTr);
 
     var r = computeSection(sec, bill);
@@ -593,20 +631,33 @@
   function thNode(cls, text) { var th = el("th", cls); th.textContent = text; return th; }
 
   function reconcileControl(sec) {
-    if (sec.reconcile == null || sec.reconcile === "") {
-      var add = el("button", "reconcile-add", { title: "Scale this section to the amount actually paid" });
-      add.textContent = "⇄ Reconcile";
+    var on = sec.reconcile != null && sec.reconcile !== "";
+    var box = el("div", "recon" + (on ? " on" : ""));
+    var sub = el("span", "sub");
+    sub.appendChild(document.createTextNode("Subtotal"));
+    var sv = el("b", null, { "data-sectotal": sec.id }); sub.appendChild(sv);
+    box.appendChild(sub);
+    if (!on) {
+      var add = el("button", "btn sm", { title: "Scale this section to the amount actually paid" });
+      add.textContent = "Reconcile";
       add.addEventListener("click", function () { var r = computeSection(sec, B()); sec.reconcile = Math.round(r.computedTotal * 100) / 100 || 0; renderSections(); recompute(); saveStore(); });
-      return add;
+      box.appendChild(add);
+      return box;
     }
-    var box = el("div", "reconcile");
-    var lbl = el("span", "rlabel"); lbl.textContent = "Actually paid";
+    var arw = el("span", "arw"); arw.textContent = "→"; box.appendChild(arw);
+    var pd = el("span", "paidwrap");
+    pd.appendChild(document.createTextNode("actually paid"));
     var inp = el("input", null, { inputmode: "decimal", "aria-label": "Amount actually paid" }); inp.value = sec.reconcile;
     inp.addEventListener("input", function () { sec.reconcile = inp.value; recompute(); saveStore(); });
-    var fac = el("span", "factor"); fac.setAttribute("data-factor", sec.id);
+    inp.addEventListener("blur", function () { if (sec.reconcile !== "" && sec.reconcile != null && isFinite(Number(sec.reconcile))) { sec.reconcile = Number(sec.reconcile); inp.value = sec.reconcile.toFixed(2); } recompute(); saveStore(); });
+    pd.appendChild(inp); box.appendChild(pd);
+    var fx = el("span", "fx");
+    fx.appendChild(document.createTextNode("shares ×"));
+    var fb = el("b", null, { "data-factor": sec.id }); fx.appendChild(fb);
+    box.appendChild(fx);
     var x = el("button", "rx", { title: "Remove reconcile", "aria-label": "Remove reconcile" }); x.textContent = "×";
     x.addEventListener("click", function () { sec.reconcile = null; renderSections(); recompute(); saveStore(); });
-    box.appendChild(lbl); box.appendChild(inp); box.appendChild(fac); box.appendChild(x);
+    box.appendChild(x);
     return box;
   }
 
@@ -634,21 +685,37 @@
       tr.appendChild(td);
     });
 
-    // payer chip (effective payer, inherited from section when not overridden)
+    // ×/÷ mode toggle
+    var tdMode = el("td", "c-mode");
+    var isDiv = it.mode === "div";
+    var mb = el("button", "mode-toggle " + (isDiv ? "divmode" : "addmode"), { "aria-label": "Toggle multiply / divide mode" });
+    if (isDiv) {
+      mb.appendChild(document.createTextNode("÷"));
+      mb.appendChild(el("span", "den", { "data-den": it.id }));
+      mb.title = "Divide: each share = weight ÷ total weight × price. Click for multiply.";
+    } else {
+      mb.textContent = "×";
+      mb.title = "Multiply: each pays weight × price. Click for divide.";
+    }
+    mb.addEventListener("click", function () { it.mode = isDiv ? "add" : "div"; renderSections(); recompute(); saveStore(); });
+    tdMode.appendChild(mb); tr.appendChild(tdMode);
+
+    // payer chip
     var tdPaid = el("td", "c-paid");
     var eff = effectivePayer(bill, sec, it);
     var isInherited = !it.payer && !!eff;
     var chip = makePayerChip(bill, eff, isInherited, { allowInherit: true, allowNone: false }, it.payer || null, function (pid) {
-      if (pid === null) it.payer = null; else it.payer = pid;
-      renderSections(); recompute(); saveStore();
+      it.payer = pid; renderSections(); recompute(); saveStore();
     });
     tdPaid.appendChild(chip); tr.appendChild(tdPaid);
 
+    // row actions
     var tdDel = el("td", "row-del");
-    var even = el("button", "even", { title: "Split evenly among everyone", "aria-label": "Split item evenly" }); even.textContent = "÷";
+    var even = el("button", "even", { title: "Split evenly among everyone", "aria-label": "Split evenly" }); even.textContent = "=";
     even.addEventListener("click", function () {
       var n = bill.people.length; if (!n) return;
-      bill.people.forEach(function (p) { it.weights[p.id] = "1/" + n; });
+      if (it.mode === "div") bill.people.forEach(function (p) { it.weights[p.id] = "1"; });
+      else bill.people.forEach(function (p) { it.weights[p.id] = "1/" + n; });
       renderSections(); recompute(); saveStore();
     });
     var db = el("button", "del", { title: "Remove item", "aria-label": "Remove item" }); db.textContent = "×";
@@ -661,7 +728,7 @@
     var tr = el("tr", "subtotal " + kind);
     var td = el("td", "sub-label", { colspan: "2" }); td.textContent = label; tr.appendChild(td);
     B().people.forEach(function (p) { var c = el("td", "sub-val", { "data-sub": sec.id + "|" + kind + "|" + p.id }); tr.appendChild(c); });
-    tr.appendChild(el("td", null, { colspan: "2" }));
+    tr.appendChild(el("td", null, { colspan: "3" }));
     return tr;
   }
 
@@ -671,10 +738,7 @@
   function makePayerChip(bill, effectiveId, inherited, opts, currentExplicit, onPick) {
     var btn = el("button", "payer-chip");
     paintChip(btn, bill, effectiveId, inherited);
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      openPayerMenu(btn, bill, opts, currentExplicit, onPick);
-    });
+    btn.addEventListener("click", function (e) { e.stopPropagation(); openPayerMenu(btn, bill, opts, currentExplicit, onPick); });
     return btn;
   }
   function paintChip(btn, bill, id, inherited) {
@@ -731,11 +795,18 @@
         setText('[data-sub="' + sec.id + "|raw|" + p.id + '"]', money(r.subtotals[p.id]));
         setText('[data-sub="' + sec.id + "|reconciled|" + p.id + '"]', money(r.scaled[p.id]));
       });
-      setText('[data-factor="' + sec.id + '"]', "×" + (Math.round(r.factor * 1000) / 1000));
-      if (amountMode) sec.items.forEach(function (it) { bill.people.forEach(function (p) {
-        var span = document.querySelector('[data-amt="' + it.id + "|" + p.id + '"]');
-        if (span) { var a = r.itemAmounts[it.id][p.id] * r.factor; span.textContent = a > 0.0001 ? (Math.round(a * 100) / 100).toFixed(2) : ""; }
-      }); });
+      setText('[data-sectotal="' + sec.id + '"]', money(r.computedTotal));
+      setText('[data-factor="' + sec.id + '"]', trimNum(r.factor));
+      sec.items.forEach(function (it) {
+        if (it.mode === "div") {
+          var den = 0; bill.people.forEach(function (p) { den += parseWeight(it.weights[p.id]); });
+          setText('[data-den="' + it.id + '"]', den > 0 ? trimNum(den) : "0");
+        }
+        if (amountMode) bill.people.forEach(function (p) {
+          var span = document.querySelector('[data-amt="' + it.id + "|" + p.id + '"]');
+          if (span) { var a = r.itemAmounts[it.id][p.id] * r.factor; span.textContent = a > 0.0001 ? (Math.round(a * 100) / 100).toFixed(2) : ""; }
+        });
+      });
     });
     renderSettle(bill, all);
   }
@@ -755,9 +826,7 @@
     if (!s.anyPayer) {
       var note = el("div", "settle-note");
       note.textContent = "Assign who paid — use the chip in each row's Paid column, or set a section default with “paid by”.";
-      body.appendChild(note);
-      elSettle.appendChild(body);
-      return;
+      body.appendChild(note); elSettle.appendChild(body); return;
     }
     body.appendChild(matrixTable(bill, s));
     var anyOwing = bill.people.some(function (p) { return s.owes[p.id] > 0.005; });
@@ -773,12 +842,11 @@
   function matrixTable(bill, s) {
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
-    var corner = el("th", "corner"); corner.innerHTML = "owes ↓<br>to →"; htr.appendChild(corner);
+    var corner = el("th", "corner"); corner.textContent = "↓ OWES →"; htr.appendChild(corner);
     bill.people.forEach(function (p) {
       var th = el("th");
       var sw = el("span", "sw"); sw.style.background = personColor(bill, p.id);
-      th.appendChild(sw); th.appendChild(document.createTextNode(p.name));
-      htr.appendChild(th);
+      th.appendChild(sw); th.appendChild(document.createTextNode(p.name)); htr.appendChild(th);
     });
     var oth = el("th", "tot"); oth.textContent = "Owes"; htr.appendChild(oth);
     thead.appendChild(htr); table.appendChild(thead);
@@ -788,8 +856,7 @@
       var tr = el("tr");
       var rh = el("th", "rowh");
       var sw = el("span", "sw"); sw.style.background = personColor(bill, ower.id);
-      rh.appendChild(sw); rh.appendChild(document.createTextNode(ower.name));
-      tr.appendChild(rh);
+      rh.appendChild(sw); rh.appendChild(document.createTextNode(ower.name)); tr.appendChild(rh);
       bill.people.forEach(function (owee) {
         if (ower.id === owee.id) { var d = el("td", "diag"); d.textContent = "—"; tr.appendChild(d); return; }
         var v = s.net[ower.id][owee.id];
@@ -829,7 +896,7 @@
     bill.sections.forEach(function (sec, i) {
       var r = all.secResults[i];
       var payer = sec.payer && personIndex(bill, sec.payer) >= 0 ? " · paid by " + personName(bill, sec.payer) : "";
-      lines.push(sec.name + (r.hasReconcile ? " (reconciled ×" + (Math.round(r.factor * 1000) / 1000) + ")" : "") + payer);
+      lines.push(sec.name + (r.hasReconcile ? " (reconciled ×" + trimNum(r.factor) + ")" : "") + payer);
       bill.people.forEach(function (p) { lines.push("  " + p.name + ": " + money(r.scaled[p.id])); });
       lines.push("");
     });
@@ -855,23 +922,22 @@
     var bill = B(), all = computeAll(bill), s = computeSettlement(bill, all);
     var q = function (v) { v = String(v == null ? "" : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
     var rows = [];
-    rows.push(["section", "item", "price", "paid by"].concat(bill.people.map(function (p) { return p.name; })).map(q).join(","));
+    rows.push(["section", "item", "price", "mode", "paid by"].concat(bill.people.map(function (p) { return p.name; })).map(q).join(","));
     bill.sections.forEach(function (sec, i) {
       var r = all.secResults[i];
       sec.items.forEach(function (it) {
         var payer = effectivePayer(bill, sec, it);
-        var row = [sec.name, it.name, num(it.price).toFixed(2), payer ? personName(bill, payer) : ""];
+        var row = [sec.name, it.name, num(it.price).toFixed(2), it.mode === "div" ? "divide" : "multiply", payer ? personName(bill, payer) : ""];
         bill.people.forEach(function (p) { row.push((r.itemAmounts[it.id][p.id] * r.factor).toFixed(2)); });
         rows.push(row.map(q).join(","));
       });
-      var sub = [sec.name, r.hasReconcile ? "Reconciled (×" + (Math.round(r.factor * 1000) / 1000) + ")" : "Subtotal", "", ""];
+      var sub = [sec.name, r.hasReconcile ? "Reconciled (×" + trimNum(r.factor) + ")" : "Subtotal", "", "", ""];
       bill.people.forEach(function (p) { sub.push(r.scaled[p.id].toFixed(2)); });
       rows.push(sub.map(q).join(","));
     });
-    var tot = ["", "TOTAL", "", ""];
+    var tot = ["", "TOTAL", "", "", ""];
     bill.people.forEach(function (p) { tot.push(all.totals[p.id].toFixed(2)); });
     rows.push(tot.map(q).join(","));
-    // owing matrix
     if (s.anyPayer) {
       rows.push("");
       rows.push(["owes \\ to"].concat(bill.people.map(function (p) { return p.name; })).concat(["Owes"]).map(q).join(","));
@@ -916,7 +982,7 @@
   // ---------- controls ----------
   document.getElementById("currency").addEventListener("change", function (e) { B().currency = e.target.value; recompute(); saveStore(); });
   document.getElementById("addSection").addEventListener("click", function () {
-    B().sections.push({ id: uid(), name: "Section " + (B().sections.length + 1), reconcile: null, payer: null, items: [{ id: uid(), name: "", price: 0, weights: {}, payer: null }] });
+    B().sections.push({ id: uid(), name: "Section " + (B().sections.length + 1), reconcile: null, payer: null, items: [blankItem()] });
     renderSections(); recompute(); saveStore();
   });
 
@@ -940,7 +1006,6 @@
     store.activeId = store.bills[0].id; render(); toast("Bill deleted");
   });
 
-  // theme
   function applyTheme() {
     var t = store.theme;
     if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
@@ -952,7 +1017,6 @@
     applyTheme(); saveStore();
   });
 
-  // export menu
   var exportBtn = document.getElementById("exportBtn"), exportMenu = document.getElementById("exportMenu");
   exportBtn.addEventListener("click", function (e) { e.stopPropagation(); exportMenu.hidden = !exportMenu.hidden; });
   exportMenu.addEventListener("click", function (e) {
@@ -963,7 +1027,6 @@
     else if (act === "link") copyText(shareLink(), "Share link copied");
   });
 
-  // global dismissers
   document.addEventListener("click", function () { exportMenu.hidden = true; closePayerMenu(); });
   window.addEventListener("scroll", closePayerMenu, true);
   window.addEventListener("resize", closePayerMenu);
