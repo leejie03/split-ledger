@@ -161,10 +161,10 @@
   td.c-price input:hover { border-color: var(--faint); }
   td.c-price input:focus { border-color: var(--accent); background: var(--field-focus); }
   table.grid td.c-cell { text-align: center; padding: 5px 2px; }
-  .wcell { display: inline-flex; align-items: center; justify-content: center; width: 46px; border: 1px solid var(--line-strong); background: var(--field); height: 28px; padding: 0 2px; transition: border-color .1s, background .1s; }
+  .wcell { display: inline-flex; align-items: center; justify-content: center; width: 56px; border: 1px solid var(--line-strong); background: var(--field); height: 28px; padding: 0 3px; transition: border-color .1s, background .1s; }
   .wcell input {
     border: none; background: transparent; color: var(--ink); font-family: var(--font); font-size: 13.5px;
-    padding: 0; width: 24px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1;
+    padding: 0; width: 26px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1;
   }
   .wcell.addcell input { text-align: center; }
   .wcell.divcell input { text-align: right; }
@@ -743,7 +743,6 @@
     inp.addEventListener("blur", function () { if (sec.reconcile !== "" && sec.reconcile != null && isFinite(Number(sec.reconcile))) { sec.reconcile = Number(sec.reconcile); inp.value = sec.reconcile.toFixed(2); } recompute(); saveStore(); });
     pd.appendChild(inp); box.appendChild(pd);
     var fx = el("span", "fx");
-    fx.appendChild(document.createTextNode("shares ×"));
     var fb = el("b", null, { "data-factor": sec.id }); fx.appendChild(fb);
     box.appendChild(fx);
     var x = el("button", "rx", { title: "Remove reconcile", "aria-label": "Remove reconcile" }); x.textContent = "×";
@@ -800,11 +799,11 @@
 
     // row actions
     var tdDel = el("td", "row-del");
-    var even = el("button", "even", { title: "Split evenly among everyone", "aria-label": "Split evenly" }); even.textContent = "=";
+    var even = el("button", "even", { title: "Split evenly (÷ mode)", "aria-label": "Split evenly" }); even.textContent = "=";
     even.addEventListener("click", function () {
-      var n = bill.people.length; if (!n) return;
-      if (it.mode === "div") bill.people.forEach(function (p) { it.weights[p.id] = "1"; });
-      else bill.people.forEach(function (p) { it.weights[p.id] = "1/" + n; });
+      if (!bill.people.length) return;
+      it.mode = "div";
+      bill.people.forEach(function (p) { it.weights[p.id] = "1"; });
       renderSections(); recompute(); saveStore();
     });
     var db = el("button", "del", { title: "Remove item", "aria-label": "Remove item" }); db.textContent = "×";
@@ -885,7 +884,7 @@
         setText('[data-sub="' + sec.id + "|reconciled|" + p.id + '"]', fmt2(r.scaled[p.id]));
       });
       setText('[data-sectotal="' + sec.id + '"]', money(r.computedTotal));
-      setText('[data-factor="' + sec.id + '"]', trimNum(r.factor));
+      setText('[data-factor="' + sec.id + '"]', "(" + (r.factor * 100).toFixed(1) + "%)");
       sec.items.forEach(function (it) {
         if (it.mode === "div") {
           var den = 0; bill.people.forEach(function (p) { den += parseWeight(it.weights[p.id]); });
@@ -990,7 +989,7 @@
     bill.sections.forEach(function (sec, i) {
       var r = all.secResults[i];
       var payer = sec.payer && personIndex(bill, sec.payer) >= 0 ? " · paid by " + personName(bill, sec.payer) : "";
-      lines.push(sec.name + (r.hasReconcile ? " (reconciled ×" + trimNum(r.factor) + ")" : "") + payer);
+      lines.push(sec.name + (r.hasReconcile ? " (reconciled to " + (r.factor * 100).toFixed(1) + "%)" : "") + payer);
       bill.people.forEach(function (p) { lines.push("  " + p.name + ": " + money(r.scaled[p.id])); });
       lines.push("");
     });
@@ -1025,7 +1024,7 @@
         bill.people.forEach(function (p) { row.push((r.itemAmounts[it.id][p.id] * r.factor).toFixed(2)); });
         rows.push(row.map(q).join(","));
       });
-      var sub = [sec.name, r.hasReconcile ? "Reconciled (×" + trimNum(r.factor) + ")" : "Subtotal", "", "", ""];
+      var sub = [sec.name, r.hasReconcile ? "Reconciled (" + (r.factor * 100).toFixed(1) + "%)" : "Subtotal", "", "", ""];
       bill.people.forEach(function (p) { sub.push(r.scaled[p.id].toFixed(2)); });
       rows.push(sub.map(q).join(","));
     });
