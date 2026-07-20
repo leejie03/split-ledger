@@ -258,10 +258,64 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-  @media (max-width: 560px) {
-    .wrap { padding: 18px 12px 50px; }
+
+  /* ---------- Mobile: reflow each item row into a stacked card ---------- */
+  @media (max-width: 640px) {
+    .wrap { padding: 16px 10px 50px; }
     .brand h1 { font-size: 22px; }
     .bill-bar .spacer { display: none; }
+
+    .section-head { padding: 12px 14px 12px; gap: 10px; }
+    .section-actions { gap: 10px 8px; width: 100%; }
+    .recon { flex-wrap: wrap; }
+
+    .table-scroll { overflow-x: visible; }
+    table.grid { min-width: 0; display: block; }
+    table.grid thead { display: none; }
+    table.grid tbody { display: block; }
+
+    /* item card */
+    table.grid tr.item-row { display: block; border: 1px solid var(--line-strong); margin: 0 12px 10px; padding: 8px 13px 10px; }
+    table.grid tr.item-row td { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: auto; border-top: none; padding: 5px 0; }
+    table.grid tr.item-row td::before { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; }
+
+    table.grid tr.item-row td.c-item { display: block; padding: 0 0 6px; margin-bottom: 4px; border-bottom: 1px solid var(--line); }
+    table.grid tr.item-row td.c-item input { width: 100%; font-size: 16px; font-weight: 600; padding: 6px 0; border-bottom: none; }
+
+    table.grid tr.item-row td.c-price::before { content: "Price"; }
+    table.grid tr.item-row td.c-price { padding: 5px 0; text-align: left; }
+    table.grid tr.item-row td.c-price input { width: 130px; }
+
+    table.grid tr.item-row td.c-cell { padding: 4px 0; }
+    table.grid tr.item-row td.c-cell::before { content: attr(data-label); }
+    table.grid tr.item-row td.c-cell input { width: 88px; }
+    table.grid tr.item-row td.c-cell .amt { display: none; }
+    table.grid tr.item-row td.c-cell.amount-mode .amt { display: block; height: auto; margin: 0; }
+
+    table.grid tr.item-row td.c-mode::before { content: "How to split"; }
+    table.grid tr.item-row td.c-paid::before { content: "Paid by"; }
+    table.grid tr.item-row td.c-paid { justify-content: space-between; }
+
+    table.grid tr.item-row td.row-del { justify-content: flex-end; gap: 8px; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+    table.grid tr.item-row td.row-del button { opacity: 1; width: 36px; height: 32px; }
+
+    /* add-item full-width */
+    table.grid tr.add-item { display: block; margin: 0 12px 12px; }
+    table.grid tr.add-item td { display: block; padding: 0; border-top: none; }
+    table.grid .add-item .cell { padding: 0; }
+    table.grid .add-item button { width: 100%; padding: 12px; }
+
+    /* subtotal card */
+    table.grid tr.subtotal { display: block; margin: 0 12px 10px; padding: 8px 13px 10px; border: 1px solid var(--line-strong); }
+    table.grid tr.subtotal td { display: flex; justify-content: space-between; border-top: none; padding: 4px 0; }
+    table.grid tr.subtotal td.sub-label { padding: 2px 0 7px; margin-bottom: 5px; border-bottom: 1px solid var(--line); color: var(--ink); }
+    table.grid tr.subtotal td.sub-val::before { content: attr(data-label); color: var(--muted); font-weight: 500; font-size: 13px; }
+    table.grid tr.subtotal td:empty { display: none; }
+    table.grid tr.subtotal.raw td.sub-val { font-size: 13px; }
+
+    /* settlement */
+    .settle-body { padding: 12px; }
+    table.matrix th, table.matrix td { padding: 8px 9px; font-size: 12.5px; }
   }
 </style>
 </head>
@@ -677,7 +731,7 @@
     tdPrice.appendChild(priceInp); tr.appendChild(tdPrice);
 
     bill.people.forEach(function (p) {
-      var td = el("td", "c-cell" + (amountMode ? " amount-mode" : ""));
+      var td = el("td", "c-cell" + (amountMode ? " amount-mode" : ""), { "data-label": p.name });
       var inp = el("input", null, { "aria-label": "Share for " + p.name }); inp.value = it.weights[p.id] || ""; inp.placeholder = "—";
       inp.addEventListener("input", function () { it.weights[p.id] = inp.value; recompute(); saveStore(); });
       td.appendChild(inp);
@@ -727,7 +781,7 @@
   function subtotalRow(sec, kind, label) {
     var tr = el("tr", "subtotal " + kind);
     var td = el("td", "sub-label", { colspan: "2" }); td.textContent = label; tr.appendChild(td);
-    B().people.forEach(function (p) { var c = el("td", "sub-val", { "data-sub": sec.id + "|" + kind + "|" + p.id }); tr.appendChild(c); });
+    B().people.forEach(function (p) { var c = el("td", "sub-val", { "data-sub": sec.id + "|" + kind + "|" + p.id, "data-label": p.name }); tr.appendChild(c); });
     tr.appendChild(el("td", null, { colspan: "3" }));
     return tr;
   }
