@@ -33,6 +33,7 @@
     --owed: #0E7C6B;
     --field: #FBFBF9;
     --field-focus: #EFF9F6;
+    --owe-dim: color-mix(in srgb, var(--owe) 58%, var(--muted));
     --font: "InterVariable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
@@ -93,7 +94,7 @@
   .btn.ghost { color: var(--muted); }
   .btn.ghost:hover { color: var(--ink); }
   .btn.sm { padding: 5px 10px; font-size: 13px; }
-  .btn.danger { border-color: var(--owe); color: var(--owe); }
+  .btn.danger { border-color: var(--owe-dim); color: var(--owe-dim); }
   .btn.danger:hover { border-color: var(--owe); background: var(--owe-soft); color: var(--owe); }
   select.ctl, input.ctl { font-family: var(--font); font-size: 14px; padding: 7px 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); }
   select.ctl { cursor: pointer; }
@@ -144,7 +145,8 @@
   table.grid thead th { border-top: none; }
   table.grid .th-item { text-align: left; padding: 12px 22px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; }
   table.grid .th-price { text-align: right; padding: 12px 9px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; white-space: nowrap; }
-  table.grid .th-person { padding: 12px 6px; font-size: 13px; font-weight: 650; text-align: center; color: var(--ink); white-space: nowrap; }
+  table.grid .th-person { padding: 12px 4px; font-size: 12.5px; font-weight: 650; text-align: center; color: var(--ink); white-space: nowrap; }
+  table.grid .th-person .th-sw { display: inline-block; width: 9px; height: 9px; margin-right: 5px; vertical-align: baseline; }
   table.grid .th-mode { padding: 12px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
   table.grid .th-paid { padding: 12px 7px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
 
@@ -157,9 +159,9 @@
   td.c-price input { width: 96px; text-align: right; border: 1px solid var(--line-strong); background: var(--field); color: var(--ink); font-family: var(--font); font-size: 14px; padding: 7px 10px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, background .12s; }
   td.c-price input:hover { border-color: var(--faint); }
   td.c-price input:focus { border-color: var(--accent); background: var(--field-focus); }
-  table.grid td.c-cell { text-align: center; padding: 5px 3px; }
+  table.grid td.c-cell { text-align: center; padding: 5px 2px; }
   td.c-cell input {
-    width: 58px; text-align: center; border: 1px solid var(--line-strong);
+    width: 52px; text-align: center; border: 1px solid var(--line-strong);
     background: var(--field); color: var(--ink); font-family: var(--font); font-size: 13.5px;
     padding: 6px 4px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1;
     transition: border-color .1s, background .1s;
@@ -183,7 +185,7 @@
   table.grid td.c-paid { text-align: center; padding: 5px 7px; }
   table.grid .row-del { width: 1%; white-space: nowrap; text-align: right; padding: 5px 16px 5px 6px; }
   .row-del button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--muted); opacity: 0; transition: opacity .12s, border-color .12s, color .12s, background .12s; width: 26px; height: 26px; font-size: 14px; line-height: 1; display: inline-grid; place-items: center; }
-  .row-del button.del { font-size: 16px; color: var(--owe); border-color: var(--owe); }
+  .row-del button.del { font-size: 16px; color: var(--owe-dim); border-color: var(--owe-dim); }
   .row-del button + button { margin-left: 5px; }
   tr.item-row:hover .row-del button, tr.item-row:focus-within .row-del button { opacity: 1; }
   .row-del button.even:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
@@ -230,7 +232,8 @@
   .settle-note { color: var(--muted); font-size: 13px; padding: 4px 0; }
   .settle-note.warn { color: var(--amber); }
 
-  table.matrix { border-collapse: collapse; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; min-width: 440px; }
+  .matrix-cap { color: var(--muted); font-size: 12.5px; margin: 0 0 11px; }
+  table.matrix { border-collapse: separate; border-spacing: 7px 0; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; min-width: 440px; }
   table.matrix th, table.matrix td { border: 1px solid var(--line); padding: 9px 13px; text-align: right; font-size: 13px; white-space: nowrap; }
   table.matrix thead th { font-weight: 650; color: var(--ink); background: var(--surface-2); }
   table.matrix thead th.corner { text-align: left; color: var(--faint); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; }
@@ -406,11 +409,33 @@
   function personIndex(bill, id) { for (var i = 0; i < bill.people.length; i++) if (bill.people[i].id === id) return i; return -1; }
   function personName(bill, id) { var i = personIndex(bill, id); return i >= 0 ? bill.people[i].name : ""; }
   function personColor(bill, id) { var i = personIndex(bill, id); return i >= 0 ? PALETTE[i % PALETTE.length] : "#8892A0"; }
-  function initials(name) {
-    name = (name || "").trim(); if (!name) return "?";
-    var parts = name.split(/\s+/);
-    if (parts.length >= 2) return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
-    return name.slice(0, 2).toUpperCase();
+  // Short, collision-free per-person abbreviations for the current bill.
+  // Two people who'd share a 2-char code (e.g. "jie yong" & "jie yi" → JY) get
+  // extended until unique.
+  function abbrevMap(bill) {
+    var used = {}, out = {};
+    bill.people.forEach(function (p) {
+      var name = (p.name || "").trim(), cand = [];
+      if (!name) { cand = ["?"]; }
+      else {
+        var t = name.split(/\s+/).filter(Boolean);
+        if (t.length >= 2) {
+          cand.push(t[0].charAt(0) + t[1].charAt(0));
+          cand.push(t[0].charAt(0) + t[1].slice(0, 2));
+          cand.push(t[0].slice(0, 2) + t[1].charAt(0));
+          cand.push(t[0].charAt(0) + t[1].slice(0, 3));
+          cand.push(t[0].slice(0, 2) + t[1].slice(0, 2));
+        } else {
+          cand.push(name.slice(0, 2)); cand.push(name.slice(0, 3)); cand.push(name.slice(0, 4));
+        }
+      }
+      cand = cand.map(function (c) { return c.toUpperCase(); });
+      var pick = null;
+      for (var i = 0; i < cand.length; i++) { if (cand[i] && !used[cand[i]]) { pick = cand[i]; break; } }
+      if (!pick) { var base = cand[cand.length - 1] || "?", k = 2; while (used[base + k]) k++; pick = base + k; }
+      used[pick] = true; out[p.id] = pick;
+    });
+    return out;
   }
   function effectivePayer(bill, sec, it) {
     var pid = it.payer || sec.payer || null;
@@ -662,7 +687,13 @@
     var thead = el("thead"), htr = el("tr");
     htr.appendChild(thNode("th-item", "Item"));
     htr.appendChild(thNode("th-price", "Price"));
-    bill.people.forEach(function (p) { var th = el("th", "th-person"); th.textContent = p.name; htr.appendChild(th); });
+    var abv = abbrevMap(bill);
+    bill.people.forEach(function (p) {
+      var th = el("th", "th-person", { title: p.name });
+      var sw = el("span", "th-sw"); sw.style.background = personColor(bill, p.id); th.appendChild(sw);
+      th.appendChild(document.createTextNode(abv[p.id]));
+      htr.appendChild(th);
+    });
     htr.appendChild(thNode("th-mode", "Mode"));
     htr.appendChild(thNode("th-paid", "Paid"));
     htr.appendChild(el("th"));
@@ -802,7 +833,7 @@
     btn.style.color = ""; btn.style.background = ""; btn.style.borderColor = "";
     if (id && personIndex(bill, id) >= 0) {
       var c = personColor(bill, id);
-      btn.textContent = initials(personName(bill, id));
+      btn.textContent = abbrevMap(bill)[id] || "?";
       btn.style.color = c; btn.style.background = c + "24";
       if (inherited) btn.style.borderColor = c;
       btn.title = inherited
@@ -884,6 +915,7 @@
       note.textContent = "Assign who paid — use the chip in each row's Paid column, or set a section default with “paid by”.";
       body.appendChild(note); elSettle.appendChild(body); return;
     }
+    var cap = el("div", "matrix-cap"); cap.textContent = "Each column is a person — read down (↓) to see who they owe."; body.appendChild(cap);
     body.appendChild(matrixTable(bill, s));
     var anyOwing = bill.people.some(function (p) { return s.owes[p.id] > 0.005; });
     if (!anyOwing) { var ok = el("div", "settle-note"); ok.style.marginTop = "10px"; ok.textContent = "✓ Everyone's settled up — no one owes anyone."; body.appendChild(ok); }
@@ -895,39 +927,41 @@
     elSettle.appendChild(body);
   }
 
+  // Transposed: columns = each person (the ower). Read DOWN a person's column
+  // to see who they owe (the row headers are the recipients).
   function matrixTable(bill, s) {
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
-    var corner = el("th", "corner"); corner.textContent = "↓ OWES →"; htr.appendChild(corner);
-    bill.people.forEach(function (p) {
-      var th = el("th");
-      var sw = el("span", "sw"); sw.style.background = personColor(bill, p.id);
-      th.appendChild(sw); th.appendChild(document.createTextNode(p.name)); htr.appendChild(th);
+    var corner = el("th", "corner"); corner.innerHTML = "owes ↓"; htr.appendChild(corner);
+    bill.people.forEach(function (ower) {
+      var th = el("th", null, { title: ower.name });
+      var sw = el("span", "sw"); sw.style.background = personColor(bill, ower.id);
+      th.appendChild(sw); th.appendChild(document.createTextNode(ower.name)); htr.appendChild(th);
     });
-    var oth = el("th", "tot"); oth.textContent = "Owes"; htr.appendChild(oth);
+    var oth = el("th", "tot"); oth.textContent = "Owed"; htr.appendChild(oth);
     thead.appendChild(htr); table.appendChild(thead);
 
     var tbody = el("tbody");
-    bill.people.forEach(function (ower) {
+    bill.people.forEach(function (owee) {
       var tr = el("tr");
       var rh = el("th", "rowh");
-      var sw = el("span", "sw"); sw.style.background = personColor(bill, ower.id);
-      rh.appendChild(sw); rh.appendChild(document.createTextNode(ower.name)); tr.appendChild(rh);
-      bill.people.forEach(function (owee) {
+      var sw = el("span", "sw"); sw.style.background = personColor(bill, owee.id);
+      rh.appendChild(sw); rh.appendChild(document.createTextNode(owee.name)); tr.appendChild(rh);
+      bill.people.forEach(function (ower) {
         if (ower.id === owee.id) { var d = el("td", "diag"); d.textContent = "—"; tr.appendChild(d); return; }
         var v = s.net[ower.id][owee.id];
         if (v > 0.005) { var c = el("td", "val"); c.textContent = money(v); tr.appendChild(c); }
         else { var z = el("td", "zero"); z.textContent = "—"; tr.appendChild(z); }
       });
-      var rt = el("td", "tot"); rt.textContent = s.owes[ower.id] > 0.005 ? money(s.owes[ower.id]) : "—"; tr.appendChild(rt);
+      var rt = el("td", "tot"); rt.textContent = s.owed[owee.id] > 0.005 ? money(s.owed[owee.id]) : "—"; tr.appendChild(rt);
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
 
     var tfoot = el("tfoot"), ftr = el("tr");
-    var fl = el("th", "rowh"); fl.textContent = "Owed"; ftr.appendChild(fl);
+    var fl = el("th", "rowh"); fl.textContent = "Owes"; ftr.appendChild(fl);
     var totAll = 0;
-    bill.people.forEach(function (p) { var td = el("td", "tot"); td.textContent = s.owed[p.id] > 0.005 ? money(s.owed[p.id]) : "—"; totAll += s.owed[p.id]; ftr.appendChild(td); });
+    bill.people.forEach(function (ower) { var td = el("td", "tot"); td.textContent = s.owes[ower.id] > 0.005 ? money(s.owes[ower.id]) : "—"; totAll += s.owes[ower.id]; ftr.appendChild(td); });
     var corner2 = el("td", "tot"); corner2.textContent = totAll > 0.005 ? money(totAll) : "—"; ftr.appendChild(corner2);
     tfoot.appendChild(ftr); table.appendChild(tfoot);
     return table;
