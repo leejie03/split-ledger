@@ -143,21 +143,21 @@
   table.grid th, table.grid td { padding: 0; border-top: 1px solid var(--line); }
   table.grid thead th { border-top: none; }
   table.grid .th-item { text-align: left; padding: 12px 22px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; }
-  table.grid .th-price { text-align: right; padding: 12px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; white-space: nowrap; }
-  table.grid .th-person { padding: 12px 10px; font-size: 13px; font-weight: 650; text-align: center; color: var(--ink); white-space: nowrap; }
-  table.grid .th-mode { padding: 12px 6px; }
-  table.grid .th-paid { padding: 12px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
+  table.grid .th-price { text-align: right; padding: 12px 9px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; white-space: nowrap; }
+  table.grid .th-person { padding: 12px 6px; font-size: 13px; font-weight: 650; text-align: center; color: var(--ink); white-space: nowrap; }
+  table.grid .th-mode { padding: 12px 5px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
+  table.grid .th-paid { padding: 12px 7px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 700; text-align: center; white-space: nowrap; }
 
   table.grid td.c-item { padding: 5px 12px 5px 22px; }
   td.c-item input { width: 100%; border: none; border-bottom: 1px solid var(--line-strong); background: transparent; font-family: var(--font); font-size: 14.5px; color: var(--ink); padding: 7px 4px 7px 0; transition: border-color .12s, background .12s; }
   td.c-item input::placeholder { color: var(--faint); }
   td.c-item input:hover { border-bottom-color: var(--faint); }
   td.c-item input:focus { border-bottom-color: var(--accent); background: var(--field-focus); }
-  table.grid td.c-price { text-align: right; white-space: nowrap; padding: 5px 12px 5px 6px; }
+  table.grid td.c-price { text-align: right; white-space: nowrap; padding: 5px 9px 5px 6px; }
   td.c-price input { width: 96px; text-align: right; border: 1px solid var(--line-strong); background: var(--field); color: var(--ink); font-family: var(--font); font-size: 14px; padding: 7px 10px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, background .12s; }
   td.c-price input:hover { border-color: var(--faint); }
   td.c-price input:focus { border-color: var(--accent); background: var(--field-focus); }
-  table.grid td.c-cell { text-align: center; padding: 5px 6px; }
+  table.grid td.c-cell { text-align: center; padding: 5px 3px; }
   td.c-cell input {
     width: 58px; text-align: center; border: 1px solid var(--line-strong);
     background: var(--field); color: var(--ink); font-family: var(--font); font-size: 13.5px;
@@ -171,17 +171,19 @@
   td.c-cell .amt { display: block; font-size: 11px; color: var(--faint); margin-top: 2px; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; height: 13px; }
 
   /* per-item add(×) / divide(÷) mode toggle */
-  table.grid td.c-mode { text-align: center; padding: 5px 6px; white-space: nowrap; }
-  .mode-toggle { display: inline-flex; align-items: center; gap: 1px; min-width: 34px; height: 26px; justify-content: center; padding: 0 8px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 650; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, color .12s; }
-  .mode-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  .mode-toggle.divmode { color: var(--accent); }
-  .mode-toggle .den { font-size: 11px; color: var(--faint); font-weight: 600; }
-  .mode-toggle.divmode:hover .den { color: var(--accent); }
+  table.grid td.c-mode { text-align: center; padding: 5px 4px; white-space: nowrap; }
+  .mode-toggle { display: inline-flex; align-items: center; gap: 2px; min-width: 38px; height: 26px; justify-content: center; padding: 0 9px; border: 1px solid var(--line-strong); font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "ss01" 1; transition: border-color .12s, color .12s, background .12s; }
+  .mode-toggle.addmode { background: var(--surface); color: var(--muted); border-color: var(--line-strong); }
+  .mode-toggle.addmode:hover { background: var(--surface-2); color: var(--ink); border-color: var(--muted); }
+  .mode-toggle.divmode { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .mode-toggle.divmode:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .mode-toggle .den { font-size: 11.5px; color: var(--accent); font-weight: 600; }
+  .mode-toggle.divmode:hover .den { color: var(--accent-ink); }
 
-  table.grid td.c-paid { text-align: center; padding: 5px 10px; }
+  table.grid td.c-paid { text-align: center; padding: 5px 7px; }
   table.grid .row-del { width: 1%; white-space: nowrap; text-align: right; padding: 5px 16px 5px 6px; }
   .row-del button { border: 1px solid var(--line-strong); background: var(--surface); color: var(--muted); opacity: 0; transition: opacity .12s, border-color .12s, color .12s, background .12s; width: 26px; height: 26px; font-size: 14px; line-height: 1; display: inline-grid; place-items: center; }
-  .row-del button.del { font-size: 16px; }
+  .row-del button.del { font-size: 16px; color: var(--owe); border-color: var(--owe); }
   .row-del button + button { margin-left: 5px; }
   tr.item-row:hover .row-del button, tr.item-row:focus-within .row-del button { opacity: 1; }
   .row-del button.even:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
@@ -661,7 +663,7 @@
     htr.appendChild(thNode("th-item", "Item"));
     htr.appendChild(thNode("th-price", "Price"));
     bill.people.forEach(function (p) { var th = el("th", "th-person"); th.textContent = p.name; htr.appendChild(th); });
-    htr.appendChild(el("th", "th-mode"));
+    htr.appendChild(thNode("th-mode", "Mode"));
     htr.appendChild(thNode("th-paid", "Paid"));
     htr.appendChild(el("th"));
     thead.appendChild(htr); table.appendChild(thead);
